@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+
+{% block body %}
+<p>{{percent_A}}</p>
+<p>{{percent_B}}</p>
+
+<div>
+    <div>
+        <h5>{{question.title}}</h5>
+        <p>A:{{question.answer_A}}</p>
+    </div>
+    <div>
+        <h5>{{question.title}}</h5>
+        <p>B:{{question.answer_B}}</p>
+    </div>
+</div>
+<hr>
+
+<form action="{% url 'choose:comment_create' id=question.id %}" id="myForm">
+    <!-- {% csrf_token %} -->
+    <select name="answer" id="myForm">
+        <option value="A">A</option>
+        <option value="B">B</option>
+    </select>
+    <label for="comment">내용</label>
+    <input type="text" id="comment" name="comment">
+    <input type="submit" value="제출">
+</form>
+
+<hr>
+<h1>Answers</h1>
+{% for comment in question.comment_set.all %}
+    <!-- 댓글 -->
+    <h3>{{comment.answer}} - {{comment.comment}}</h3>
+
+    <!-- 대댓글 입력 -->
+    <form action="{% url 'choose:reply' id=comment.id question_id=question.id %}">
+        <label for="reply"></label>
+        <input type="text" id="reply" name="reply">
+        <input type="submit" value="제출">
+    </form>
+    
+    <!-- 대댓글 보여주기 -->
+    {% for reply in comment.reply_set.all  %}
+        <p>{{reply.reply}}</p>
+    {% endfor %}
+    <a href="{% url 'choose:comment_delete' id=question.id comment_id=comment.id%}">delete</a>
+{% endfor %}
+{% endblock %}

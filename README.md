@@ -1,0 +1,13 @@
+- gitignore 설정
+- start project
+- start app / setting.py 내에 앱 등록
+- base.html 구조 작성
+- 모델링 / 마이그레이션
+- admin에 Article 등록
+- Read(ALL) 기능 구현
+- Read(1) 기능 구현
+- Create  기능 구현
+- Comment 모델링 / 마이그레이션
+- Comment Read 구현    
+- Comment Create 기능 구현
+- 대댓글 기능 구현
